@@ -35,10 +35,8 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>tdd in practice<br>
-					</h1>
-					<p>@TomasVarneckas<br>
-					</p>
+					<h1>tdd in practice</h1>
+					<p>@TomasVarneckas</p>
 				</section>
 
 				<section>
@@ -228,12 +226,107 @@
 					<h2>ActiveRecord</h2>
 					<br>
 					<p>
+					How many tests for this?
 						<pre><code class="ruby">
-class User &lt; ActiveRecord::Base
-  has_many :books
+class User < ActiveRecord::Base
+  devise :database_authenticatable, :rememberable
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  validates_presence_of :common_sense
 end
 						</code></pre>
 					</p>
+				</section>
+
+				<section>
+					<h2>ActiveRecord</h2>
+					<br>
+					<p>
+					What about now?
+						<pre><code class="ruby">
+class User < ActiveRecord::Base
+  devise :database_authenticatable, :rememberable
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  validates_presence_of :common_sense
+
+  def common_sense
+    sanity.present? and life_experience.present?
+  end
+end
+						</code></pre>
+					</p>
+				</section>
+
+				<section>
+				<h2>Callbacks</h2>
+				<p>Looks familiar?</p>
+				<pre><code>
+class User &lt; ActiveRecord::Base
+  # ...
+
+  before_save :send_welcome_email
+
+  # ...
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
+end
+</code></pre>
+				</section>
+
+				<section>
+					<h2>The Cost</h2>
+					<p>Imagine we have 100 controller specs.</p>
+					<p>Most of them need a signed in user.</p>
+					<p>Adding this kind of callback will slow total test runtime noticeably.</p>
+					<p>And it doesn't really make sense to put this into the model.</p>
+				</section>
+
+
+				<section>
+					<h2>The Flow</h2>
+
+					<p>The TDD cycle must be fast.</p>
+					<p>Waiting more than 5 seconds for a single test is bad.</p>
+					<p>Inevitable if developing Rails apps the traditional way.</p>
+				</section>
+
+				<section>
+					<h2>Rails preloaders</h2>
+
+					<p>
+					<ul>
+						<li>Spork</li>
+						<li>Zeus</li>
+						<li>Spring</li>
+					</ul>
+					</p>
+
+					<p>Simple to add.</p>
+					<p>No need to change development style.</p>
+				</section>
+
+				<section>
+					<h2>Abstracting Rails away</h2>
+
+					<ul>
+						<li>DCI</li>
+						<li>PORO</li>
+						<li>Hexagonal design</li>
+					</ul>
+
+					<p>Downside is extra layers of abstraction, less documented approach.</p>
+				</section>
+
+				<section>
+					<h2>Services</h2>
+
+					<p>Break up app into several apps which provide services.</p>
+					<p>Overkill for small projects.</p>
 				</section>
 			</div>
 
@@ -268,6 +361,10 @@ end
 					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				$(".slide-number").html(event.indexh);
+			} );
 
 		</script>
 
