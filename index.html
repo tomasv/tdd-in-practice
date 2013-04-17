@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -31,7 +31,6 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
 			<div class="slides">
 				<section>
@@ -41,135 +40,77 @@
 
 				<section>
 					<h2>Me</h2>
-					<p>doing Rails for ~3 years (started with 2.3)</p>
-					<p>Mostly small projects (&lt;30kloc)<br>
-					</p>
+					<p>Doing Rails for ~3 years (started with 2.3)</p>
+					<p>Mostly small projects (&lt;30kloc)</p>
+					<p>Doing TDD (trying to) most of the time</p>
 				</section>
 
 				<section>
 					<h2>Usual stack</h2>
-					<p>
-					<br>
-					</p>
 					<p>Rails</p>
 					<p>RSpec</p>
-					<p>Cucumber =&gt; Capybara/RSpec<br>
-					</p>
-					<p>Blueprints =&gt; FactoryGirl<br>
-					</p>
+					<p>Cucumber =&gt; Capybara/RSpec</p>
+					<p>Blueprints =&gt; FactoryGirl</p>
 					<p>Mocha</p>
-					<p>
-					<br>
-					</p>
-					<p>Timecop, Webmock, VCR<br>
-					</p>
+					<p>Timecop, Webmock, VCR</p>
 				</section>
 
 				<section>
 					<h2>TDD?</h2>
-					<p>
-					<br>
-					</p>
 					<p>Test-First Development</p>
 					<p>Test Driven Development</p>
-					<p>
-					<br>
-					</p>
-					<p>Behavior Driven Development<br>
-					</p>
+					<p>Behavior Driven Development</p>
 				</section>
 
 				<section>
 					<h2>TDD cycle</h2>
-					<br>
-					<p>
-					<img src="http://i.imgur.com/NehMNIR.jpg">
-					<br>
-					</p>
+					<p> <img src="http://i.imgur.com/NehMNIR.jpg"> </p>
 				</section>
 
 				<section>
-					<h2>First test<br>
-					</h2>
-					<p>
-					<br>
-					</p>
+					<h2>First test</h2>
 					<p>New tools</p>
 					<p>Uncertainty</p>
-					<p>
-					<br>
-					</p>
-					<p>&nbsp;<br>
-					</p>
 				</section>
 
 				<section>
 					<h2>New tools</h2>
-					<p>
-					<br>
-					</p>
-					<p>Feel free to investigate first<br>
-					</p>
+					<p>Feel free to investigate first</p>
 					<p>Code spikes</p>
-					<p>Quick mockups<br>
-					</p>
+					<p>Quick mockups</p>
 				</section>
 
 				<section>
 					<h2>Where to start?</h2>
-					<p>At the top</p>
-					<p>
-					<br>
-					</p>
-					<p>Write an acceptance test first</p>
-					<p>Capybara/Cucumber</p>
-					<p>
-					<br>
-					</p>
-					<p>Take the happy path of a feature you need</p>
-					<p>and use that as your base<br>
-					</p>
+					<ul>
+						<li>At the top</li>
+						<li>Write an acceptance test first (Capybara/Cucumber)</li>
+						<li>Do not test edge cases</li>
+					</ul>
 				</section>
 
 				<section>
 					<h2>Poor Mans Acceptance Test</h2>
 					<p>The Browser</p>
-					<p>
-					<br>
-					</p>
 					<p>Write view code you would want for a feature</p>
 					<p>Watch it break</p>
-					<p>Implement whats needed (controller/model/helper specs)<br>
-					</p>
+					<p>Implement whats needed (controller/model/helper specs) </p>
 					<p>Repeat</p>
-					<p>
-					<br>
-					</p>
-					<p>Good for small features<br>
-					</p>
-					<p>Easy to get lost if the flow has more than 2-3 steps<br>
-					</p>
+					<p> <br> </p>
+					<p>Good for small features</p>
+					<p>Easy to get lost if the flow has more than 2-3 steps </p>
 				</section>
 
 				<section>
 					<h2>Bigger features</h2>
-					<p>
-					<br>
-					</p>
 					<p>Write requests specs using tools like Capybara or Cucumber.</p>
 					<p>Write these tests for the happy path only (user input without errors).</p>
 					<p>Testing edge cases with high level tests is expensive.</p>
-					<p>
-					<br>
-					</p>
-					<p>
-					<b>Time</b> is expensive.</p>
+					<p> <br> </p>
+					<p> <b>Time</b> is expensive.</p>
 					<p>Your <b>happiness</b> is expensive.</p>
-					<p>
-					<br>
-					</p>
-					<p>Sort out the edge cases in controller spec level or lower.<br>
-					</p>
+					<p> <br> </p>
+					<p>Sort out the edge cases in controller spec level or lower.</p>
 				</section>
 
 				<section>
@@ -193,9 +134,6 @@
 
 				<section>
 					<h2>More thoughts</h2>
-					<p>
-					<br>
-					</p>
 					<p>"In general I don't write tests for any code that I have to <i>"fiddle"</i> into
 					place by trial and error.  But I separate that "<i>fiddling</i>" code from 
 					code that I am surer of and can write tests for."</p>
@@ -203,8 +141,6 @@
 					to nudge them into place by changing a font size here, an RGB value 
 					there, an XY position here, a field width there.  Doing that test-first 
 					is silly and wasteful."</p>
-					<p>
-					</p>
 					<div class="fragment">
 						<p> <b>Robert C. Martin</b> </p>
 						<p> <a href="http://blog.8thlight.com/uncle-bob/2013/03/06/ThePragmaticsOfTDD.html">8th Light blog</a></p>
@@ -213,28 +149,26 @@
 
 				<section>
 					<h2>Principles</h2>
-					<p>
-					<br>
-					</p>
 					<p>Write tests to have confidence in your code</p>
 					<p>Stop when you are confident enough</p>
-					<p>Don't waste time writing time consuming and very brittle tests<br>
-					</p>
+					<p>Don't waste time writing time consuming and very brittle tests</p>
 				</section>
 
 				<section>
 					<h2>ActiveRecord</h2>
 					<br>
 					<p>
-					How many tests for this?
-						<pre><code class="ruby">
-class User < ActiveRecord::Base
+						How many tests for this?
+						<pre>
+							<code class="ruby">
+class User &lt; ActiveRecord::Base
   devise :database_authenticatable, :rememberable
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   validates_presence_of :common_sense
 end
-						</code></pre>
+							</code>
+						</pre>
 					</p>
 				</section>
 
@@ -242,9 +176,10 @@ end
 					<h2>ActiveRecord</h2>
 					<br>
 					<p>
-					What about now?
-						<pre><code class="ruby">
-class User < ActiveRecord::Base
+						What about now?
+						<pre>
+							<code>
+class User &lt; ActiveRecord::Base
   devise :database_authenticatable, :rememberable
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
@@ -254,14 +189,16 @@ class User < ActiveRecord::Base
     sanity.present? and life_experience.present?
   end
 end
-						</code></pre>
+							</code>
+						</pre>
 					</p>
 				</section>
 
 				<section>
-				<h2>Callbacks</h2>
-				<p>Looks familiar?</p>
-				<pre><code>
+					<h2>Callbacks</h2>
+					<p>Looks familiar?</p>
+					<pre>
+						<code>
 class User &lt; ActiveRecord::Base
   # ...
 
@@ -275,7 +212,8 @@ class User &lt; ActiveRecord::Base
     UserMailer.welcome_email(self).deliver
   end
 end
-</code></pre>
+						</code>
+					</pre>
 				</section>
 
 				<section>
@@ -285,7 +223,6 @@ end
 					<p>Adding this kind of callback will slow total test runtime noticeably.</p>
 					<p>And it doesn't really make sense to put this into the model.</p>
 				</section>
-
 
 				<section>
 					<h2>The Flow</h2>
@@ -297,40 +234,39 @@ end
 
 				<section>
 					<h2>Rails preloaders</h2>
-
-					<p>
 					<ul>
 						<li>Spork</li>
 						<li>Zeus</li>
 						<li>Spring</li>
 					</ul>
-					</p>
-
 					<p>Simple to add.</p>
 					<p>No need to change development style.</p>
 				</section>
 
 				<section>
 					<h2>Abstracting Rails away</h2>
-
 					<ul>
 						<li>DCI</li>
 						<li>PORO</li>
 						<li>Hexagonal design</li>
 					</ul>
-
 					<p>Downside is extra layers of abstraction, less documented approach.</p>
 				</section>
 
 				<section>
 					<h2>Services</h2>
-
 					<p>Break up app into several apps which provide services.</p>
 					<p>Overkill for small projects.</p>
 				</section>
+
+				<section>
+					<h2>Verdict</h2>
+					<p>TDD brings focus</p>
+					<p>TDD gives confidence</p>
+					<p>Not all situations require strict discipline</p>
+					<p>It's only a tool</p>
+				</section>
 			</div>
-
-
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
@@ -347,7 +283,7 @@ end
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
