@@ -68,30 +68,37 @@
 				</section>
 
 				<section>
-					<h2>First test</h2>
-					<p>New tools</p>
+					<h2>Effects</h2>
+					<p>Ease refactoring</p>
+					<p>Produce testable code</p>
+					<p><b>Focus</b></p>
+				</section>
+
+				<section>
+					<h2>Concerns</h2>
+					<p>Time</p>
 					<p>Uncertainty</p>
 				</section>
 
 				<section>
-					<h2>New tools</h2>
-					<p>Feel free to investigate first</p>
-					<p>Code spikes</p>
-					<p>Quick mockups</p>
+					<h2>Uncertainty</h2>
+					<p>Where to start?</p>
+					<p>Unfamiliar tools/frameworks</p>
 				</section>
 
 				<section>
 					<h2>Where to start?</h2>
 					<ul>
-						<li>At the top</li>
+						<li>From the outside</li>
 						<li>Write an acceptance test first (Capybara/Cucumber)</li>
 						<li>Do not test edge cases</li>
+						<li>Fill in the gaps using lower level tests</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Poor Mans Acceptance Test</h2>
-					<p>The Browser</p>
+					<p><b>The Browser</b></p>
 					<p>Write view code you would want for a feature</p>
 					<p>Watch it break</p>
 					<p>Implement whats needed (controller/model/helper specs) </p>
@@ -108,7 +115,6 @@
 					<p>Testing edge cases with high level tests is expensive.</p>
 					<p> <br> </p>
 					<p> <b>Time</b> is expensive.</p>
-					<p>Your <b>happiness</b> is expensive.</p>
 					<p> <br> </p>
 					<p>Sort out the edge cases in controller spec level or lower.</p>
 				</section>
@@ -148,15 +154,14 @@
 				</section>
 
 				<section>
-					<h2>Principles</h2>
-					<p>Write tests to have confidence in your code</p>
-					<p>Stop when you are confident enough</p>
-					<p>Don't waste time writing time consuming and very brittle tests</p>
+					<h2>Rules of thumb</h2>
+					<p>Test to have confidence in your code.</p>
+					<p>Stop when you are confident enough.</p>
+					<p>Don't waste time writing time consuming and very brittle tests.</p>
 				</section>
 
 				<section>
 					<h2>ActiveRecord</h2>
-					<br>
 					<p>
 						How many tests for this?
 						<pre>
@@ -174,7 +179,6 @@ end
 
 				<section>
 					<h2>ActiveRecord</h2>
-					<br>
 					<p>
 						What about now?
 						<pre>
@@ -195,16 +199,31 @@ end
 				</section>
 
 				<section>
-					<h2>Callbacks</h2>
-					<p>Looks familiar?</p>
+					<h2>ActiveRecord</h2>
+					<p>Looks important...</p>
 					<pre>
 						<code>
 class User &lt; ActiveRecord::Base
-  # ...
+  devise :database_authenticatable, :rememberable
+  attr_accessible :email, :password, :password_confirmation, :remember_me
 
+  validates_presence_of :common_sense
+
+  def revenue
+    sold_items.map(&amp;:price) + sold_service.map(&amp;:price)
+  end
+end
+						</code>
+					</pre>
+
+				</section>
+				<section>
+					<h2>Callbacks</h2>
+					<p>Look familiar?</p>
+					<pre>
+						<code>
+class User &lt; ActiveRecord::Base
   before_save :send_welcome_email
-
-  # ...
 
   private
 
@@ -218,29 +237,147 @@ end
 
 				<section>
 					<h2>The Cost</h2>
-					<p>Imagine we have 100 controller specs.</p>
-					<p>Most of them need a signed in user.</p>
-					<p>Adding this kind of callback will slow total test runtime noticeably.</p>
-					<p>And it doesn't really make sense to put this into the model.</p>
+					<p>100 specs * mailer code runtime = coffee break</p>
+				</section>
+
+				<section>
+					<h2>Rationale</h2>
+					<p>Does a new user record always need an email to be sent?</p>
+					<p>Perhaps that's a higher level concern?</p>
 				</section>
 
 				<section>
 					<h2>The Flow</h2>
-
 					<p>The TDD cycle must be fast.</p>
 					<p>Waiting more than 5 seconds for a single test is bad.</p>
 					<p>Inevitable if developing Rails apps the traditional way.</p>
 				</section>
 
 				<section>
-					<h2>Rails preloaders</h2>
+					<h2>Easing the pain</h2>
 					<ul>
-						<li>Spork</li>
-						<li>Zeus</li>
-						<li>Spring</li>
+						<li>Rails preloaders</li>
+						<li>Mocking and stubbing</li>
+						<li>Decoupling Rails</li>
 					</ul>
+				</section>
+
+				<section>
+					<h2>Rails preloaders</h2>
+					<p>
+						<ul>
+							<li>Spork</li>
+							<li>Zeus</li>
+							<li>Spring</li>
+						</ul>
+					</p>
 					<p>Simple to add.</p>
 					<p>No need to change development style.</p>
+					<p>Drop in solutions.</p>
+				</section>
+
+				<section>
+					<h2>Mocking and stubbing</h2>
+
+					<p>What to mock:</p>
+					<ul>
+						<li>Everything except for unit under test</li>
+						<li>Complex collaborators which are tested elsewhere</li>
+						<li>Nuisances</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>ActionController</h2>
+					<p>Responsibilities</p>
+					<ul>
+						<li>Handle user input</li>
+						<li>Prepare data for views</li>
+						<li>Invoke business logic</li>
+						<li>HTTP response</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Typical</h2>
+					<pre>
+						<code>
+class UsersController &lt; ActionController::Base
+  respond_to :html
+
+  def index; @users = User.all; end
+  def show; @user = User.find(params[:id]); end
+  def new; @user = User.new; end
+
+  def create
+    @user = User.new(params[:user])
+    @user.save
+    UserMailer.welcome(@user).deliver if @user.errors.blank?
+    respond_with(@user)
+  end
+end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>My approach</h2>
+					<p>Mock out mailer, test separately.</p>
+					<p>Success behavior</p>
+					<p>Failure behavior</p>
+				</section>
+
+				<section>
+					<h2>Example test</h2>
+
+					<pre>
+						<code class="ruby">
+describe UsersController do
+  describe 'create' do
+    context 'given valid input' do
+      def do_post; post :create, user: attributes_for(:user); end
+
+      it 'redirects to users page' do
+        do_post; response.should redirect_to user_path(User.last)
+      end
+      it 'creates a user' do
+        expect { do_post }.to change(User, :count).by(1)
+      end
+      it 'sends out a welcome' do
+        UserMailer.expects(:welcome).once.returns(stub_everything)
+        do_post
+      end
+    end
+  end
+end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>Example test (continued)</h2>
+
+					<pre>
+						<code class="ruby">
+describe UsersController do
+  describe 'create' do
+    context 'given invalid input' do
+      def do_post; post :create, user: attributes_for(:user).except(:email); end
+
+      it 'renders new' do
+        do_post; response.should render_template :new
+      end
+      it 'does not create a user' do
+        expect { do_post }.to_not change(User, :count)
+      end
+      it 'does not send out a welcome' do
+        UserMailer.expects(:welcome).never; do_post
+      end
+    end
+  end
+end
+						</code>
+					</pre>
 				</section>
 
 				<section>
