@@ -41,7 +41,7 @@
 				<section>
 					<h2>Me</h2>
 					<p>Doing Rails for ~3 years (started with 2.3)</p>
-					<p>Mostly small projects (&lt;30kloc)</p>
+					<p>Mostly small projects (&lt;20kloc)</p>
 					<p>Doing TDD (trying to) most of the time</p>
 				</section>
 
@@ -49,9 +49,9 @@
 					<h2>Usual stack</h2>
 					<p>Rails</p>
 					<p>RSpec</p>
-					<p>Cucumber =&gt; Capybara/RSpec</p>
-					<p>Blueprints =&gt; FactoryGirl</p>
 					<p>Mocha</p>
+					<p>Capybara/RSpec</p>
+					<p>FactoryGirl</p>
 					<p>Timecop, Webmock, VCR</p>
 				</section>
 
@@ -69,9 +69,9 @@
 
 				<section>
 					<h2>Effects</h2>
-					<p>Ease refactoring</p>
-					<p>Produce testable code</p>
-					<p><b>Focus</b></p>
+					<p>Ease refactoring.</p>
+					<p>Produce testable code.</p>
+					<p><b>Focus.</b></p>
 				</section>
 
 				<section>
@@ -82,41 +82,34 @@
 
 				<section>
 					<h2>Uncertainty</h2>
-					<p>Where to start?</p>
 					<p>Unfamiliar tools/frameworks</p>
+					<p>Where to start?</p>
+				</section>
+
+				<section>
+					<h2>Stranger in a strange land</h2>
+					<p>Experiment without tests.</p>
+					<p>Do quick mockups.</p>
 				</section>
 
 				<section>
 					<h2>Where to start?</h2>
-					<ul>
-						<li>From the outside</li>
-						<li>Write an acceptance test first (Capybara/Cucumber)</li>
-						<li>Do not test edge cases</li>
-						<li>Fill in the gaps using lower level tests</li>
-					</ul>
+					<p>From the outside.</p>
+					<p>Write an acceptance test first.</p>
+					<p>Do <b>not</b> test edge cases in acceptance tests.</p>
+					<p>Fill in the gaps using lower level tests.</p>
 				</section>
 
 				<section>
 					<h2>Poor Mans Acceptance Test</h2>
 					<p><b>The Browser</b></p>
-					<p>Write view code you would want for a feature</p>
-					<p>Watch it break</p>
-					<p>Implement whats needed (controller/model/helper specs) </p>
-					<p>Repeat</p>
+					<p>Write view code you would want for a feature.</p>
+					<p>Watch it break.</p>
+					<p>Implement whats needed (with controller/model/helper specs).</p>
+					<p>Repeat.</p>
 					<p> <br> </p>
-					<p>Good for small features</p>
-					<p>Easy to get lost if the flow has more than 2-3 steps </p>
-				</section>
-
-				<section>
-					<h2>Bigger features</h2>
-					<p>Write requests specs using tools like Capybara or Cucumber.</p>
-					<p>Write these tests for the happy path only (user input without errors).</p>
-					<p>Testing edge cases with high level tests is expensive.</p>
-					<p> <br> </p>
-					<p> <b>Time</b> is expensive.</p>
-					<p> <br> </p>
-					<p>Sort out the edge cases in controller spec level or lower.</p>
+					<p>Good for small features.</p>
+					<p>Easy to get lost if the flow has more than 2-3 steps.</p>
 				</section>
 
 				<section>
@@ -124,6 +117,7 @@
 					<p> <br> </p>
 					<p>Testing JS heavy pages with request specs is painful.</p>
 					<p>Lots of <i>fiddling</i>.</p>
+					<p>Avoid if possible. Test JS separately using Jasmine.</p>
 				</section>
 
 				<section>
@@ -264,13 +258,10 @@ end
 
 				<section>
 					<h2>Rails preloaders</h2>
-					<p>
-						<ul>
-							<li>Spork</li>
-							<li>Zeus</li>
-							<li>Spring</li>
-						</ul>
-					</p>
+					<p>Spork</p>
+					<p>Zeus</p>
+					<p>Spring</p>
+					<p><br /></p>
 					<p>Simple to add.</p>
 					<p>No need to change development style.</p>
 					<p>Drop in solutions.</p>
@@ -279,7 +270,7 @@ end
 				<section>
 					<h2>Mocking and stubbing</h2>
 
-					<p>What to mock:</p>
+					<p>What to mock?</p>
 					<ul>
 						<li>Everything except for unit under test</li>
 						<li>Complex collaborators which are tested elsewhere</li>
@@ -322,9 +313,9 @@ end
 
 				<section>
 					<h2>My approach</h2>
+					<p>Success test case</p>
+					<p>Failure test case</p>
 					<p>Mock out mailer, test separately.</p>
-					<p>Success behavior</p>
-					<p>Failure behavior</p>
 				</section>
 
 				<section>
@@ -381,27 +372,168 @@ end
 				</section>
 
 				<section>
+					<h2>Small Controllers</h2>
+					<p>Test mailer in the controller spec.</p>
+					<p>Becomes cumbersome fast.</p>
+				</section>
+
+				<section>
+					<h2>Small tip</h2>
+					<pre>
+						<code>
+RSpec.configure do |config|
+  # ...
+  config.render_views
+  # ...
+end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>The Cost</h2>
+
+					<p>Without</p>
+					<pre>
+						<code>
+Finished in 18.8 seconds
+246 examples, 0 failures
+						</code>
+					</pre>
+
+					<p>With</p>
+					<pre>
+						<code>
+Finished in 21.57 seconds
+246 examples, 0 failures
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>Legacy Code</h2>
+					<p>Isolate a region.</p>
+					<p>Cover it with some basic tests.</p>
+					<p>Refactor.</p>
+				</section>
+
+				<section>
+					<h2>Example</h2>
+					<pre>
+						<code>
+class DoImport &lt; Struct.new(:import_id)
+  def perform
+    Rails.logger.info "started import"
+    @import = Import.find(import_id) #move this to job...
+    total_count = 0
+    imported_count = 0
+    failed_array = []
+    tmp_dir = "#{Rails.root}/tmp" #create tmp
+    Dir::mkdir(tmp_dir) unless FileTest::directory?(tmp_dir)
+    x = open(@import.spreadsheet.url).read
+    #dl from url
+    open("#{Rails.root}/tmp/#{@import.spreadsheet_file_name}", 'wb') do |file|
+      file &lt;&lt; x
+    end
+    # 60 lines omitted
+  end
+end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>First Step</h2>
+					<p>Isolate input source.</p>
+					<p>Stub it in tests.</p>
+				</section>
+
+				<section>
+					<h2>Result (model)</h2>
+					<pre>
+						<code>
+  def perform
+    csv = read_spreadsheet
+    # ...
+  end
+
+  def read_spreadsheet
+    #create tmp
+    tmp_dir = "#{Rails.root}/tmp"
+    Dir::mkdir(tmp_dir) unless FileTest::directory?(tmp_dir)
+    x = open(@import.spreadsheet.url).read
+    #dl from url
+    open("#{Rails.root}/tmp/#{@import.spreadsheet_file_name}", 'wb') do |file|
+      file &lt;&lt; x
+    end
+    #open from tmp folder
+    File.read("#{Rails.root}/tmp/#{@import.spreadsheet_file_name}")
+  end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>Result (test)</h2>
+					<pre>
+						<code class="ruby">
+describe DoImport do
+  before do
+    @do_import = DoImport.new(@import.id)
+    @mock_csv = &lt;&lt;-CSV.strip_heredoc
+      "id","name"
+      ,"Foo"
+    CSV
+    @do_import.stubs(:read_spreadsheet).returns(@mock_csv)
+  end
+
+  it 'creates a record' do
+    expect { @do_import.perform }.to change { Record.count }
+  end
+end
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>Result</h2>
+					<p>Far from perfect.</p>
+					<div class="fragment">
+						<p>Now we have a starting point.</p>
+					</div>
+					<div class="fragment">
+						<p>Refactor when modifying or adding new features.</p>
+					</div>
+				</section>
+
+				<section>
 					<h2>Abstracting Rails away</h2>
-					<ul>
-						<li>DCI</li>
-						<li>PORO</li>
-						<li>Hexagonal design</li>
-					</ul>
-					<p>Downside is extra layers of abstraction, less documented approach.</p>
+					<p>
+						<ul>
+							<li>Data Context Interaction</li>
+							<li>Pure Old Ruby Objects</li>
+							<li>Rails as an implementation detail</li>
+						</ul>
+					</p>
+					<p>Extra layers of abstraction, less documented approach.</p>
+					<p>Small projects can happily live without thinking about this.</p>
 				</section>
 
 				<section>
 					<h2>Services</h2>
-					<p>Break up app into several apps which provide services.</p>
+					<p>Break up app into several apps, each providing specific features.</p>
 					<p>Overkill for small projects.</p>
 				</section>
 
 				<section>
-					<h2>Verdict</h2>
-					<p>TDD brings focus</p>
-					<p>TDD gives confidence</p>
-					<p>Not all situations require strict discipline</p>
-					<p>It's only a tool</p>
+					<h2>The End</h2>
+					<p>TDD brings focus and confidence.</p>
+					<p>Not all situations require strict discipline.</p>
+					<p>Try applying it partially to see where pain appears.</p>
+				</section>
+
+				<section>
+					<h1>Questions?</h1>
 				</section>
 			</div>
 		</div>
